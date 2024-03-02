@@ -58,12 +58,24 @@ Distance Calculation:
 	Office to the User Location. Next, the program would use
 	the distance into a classifier to determine whether the 
 	user would receive an invite or not based upon they
-	are within 100km of the SF Office.
+	are within 100km of the SF Office (37.789107, -122.40017).
 
 	Relevant function(s):
 
 		get_coordinates(user):
 		get_distance(user):
+
+	Dev Notes:
+
+		get_coordinates(users):
+
+		This function would be used to retrieve the coordinates given a user_id from the "Customer List.txt" file, and be nested
+		within the get_distance function to retrieve the distance.
+
+		get_distance(user):
+
+		Using the distance calculation. this function would return the distance of the user. Use the get_coordinates(user) function
+		to determine the distance within this function.
 
 Data Format:
 
@@ -87,6 +99,17 @@ Data Format:
 
 		output_format(useList,user):
 		write_to_output():
+
+	Dev Notes:
+
+		output_format(userList,user):
+
+		Output the format to std.out to determine if the format looks good. This will be an indication to how the data would appear
+		when written to the file.
+
+		write_to_output():
+
+		This will be the last function and will write to the file. Write to a different .txt file of your choosing.
 
 ----------------------------
 REQUIREMENTS
