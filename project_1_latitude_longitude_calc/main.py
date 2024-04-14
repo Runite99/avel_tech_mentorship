@@ -1,12 +1,7 @@
-import json
-
 import math
 
 from math import radians, cos, sin, asin, sqrt
 
-
-
-file_path = "/home/agun34/avel_tech_mentorship/project_1_latitude_longitude_calc/Customer List.txt"
 def user_id_to_int(user_id):
      return int (user_id)
     
@@ -15,9 +10,8 @@ def search_user_by_id(user_id):
     if user_id in customer_info:
         return customer_info[user_id]
     return {}
-##Variable
 
-##index_sorter = []
+
 def sort_by_index(user):
     user = user_id_to_int(user['user_id'])
     return user
@@ -28,7 +22,7 @@ def sort_by_index(user):
 
 
 ## Reads Index
-with open(file_path, 'r') as file:
+with open('Customer List.txt', 'r') as file:
     index = file.read()
     
 new_index = index.split("\n")
@@ -141,23 +135,30 @@ def output_format(userList, user):
 for item in sorter_index:
     output_format(userList, item)
 
-print("INVITE")
-print("\t--------------------")
-for item in userList['invite']:
-    item_coordinates = getCoordinates(item.get('user_id'))
-    item_distance = getDistance(item_coordinates)
-    user_info = f"\t{{user_id: {item.get('user_id')}, name: '{item.get('name')}', latitude: '{item.get('latitude')}', longitude: '{item.get('longitude')}', Distance: {item_distance}}}"
-    print(user_info)
+invited_users = userList['invite']
+non_invited_users = userList['no_invite']
+    
+def write_to_output(invited_users, non_invited_users, filename):
+    with open(filename, 'w') as file:
+        file.write("INVITE\n")
+        file.write("\t--------------------\n")
+        for item in invited_users:
+            item_coordinates = getCoordinates(item.get('user_id'))
+            item_distance = getDistance(item_coordinates)
+            user_info = f"\t{{user_id: {item.get('user_id')}, name: '{item.get('name')}', latitude: '{item.get('latitude')}', longitude: '{item.get('longitude')}', Distance: '{item_distance}' }}\n"
+            file.write(user_info)
 
-# Display non-invited users
-print("\nNO INVITE")
-print("\t--------------------")
-for item in userList['no_invite']:
-    item_coordinates = getCoordinates(item.get('user_id'))
-    item_distance = getDistance(item_coordinates)
-    user_info = f"\t{{user_id: {item.get('user_id')}, name: '{item.get('name')}', latitude: '{item.get('latitude')}', longitude: '{item.get('longitude')}', Distance: {item_distance}}}"
-    print(user_info)
+        file.write("\nNO INVITE\n")
+        file.write("\t--------------------\n")
+        for item in non_invited_users:
+            item_coordinates = getCoordinates(item.get('user_id'))
+            item_distance = getDistance(item_coordinates)
+            user_info = f"\t{{user_id: {item.get('user_id')}, name: '{item.get('name')}', latitude: '{item.get('latitude')}', longitude: '{item.get('longitude')}', Distance: '{item_distance}' }}\n"
+            file.write(user_info)
 
+filename = 'output.txt'
+
+write_to_output(invited_users, non_invited_users, filename)
     
     
     
